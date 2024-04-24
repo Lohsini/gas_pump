@@ -136,7 +136,7 @@ S0::S0(MDAEFSM *mda)
 
 void S0::Start()
 {
-  p->ChangeState(0);
+  p->ChangeState(1);
 }
 
 S1::S1(MDAEFSM *mda)
@@ -250,46 +250,73 @@ void GP1::Activate(int a)
 void GP1::Start()
 {
   std::cout << "Start GasPump" << std::endl;
+  m->Start();
 }
 
 void GP1::PayCredit()
 {
   std::cout << "Pay with credit" << std::endl;
+  m->PayType(1);
 }
 
 void GP1::Reject()
 {
   std::cout << "Transaction rejected" << std::endl;
+  m->Reject();
 }
 
 void GP1::Cancel()
 {
   std::cout << "Transaction cancelled" << std::endl;
+  m->Cancel();
 }
 
 void GP1::Approved()
 {
   std::cout << "Transaction approved" << std::endl;
+  m->Approved();
 }
 
 void GP1::PayCash(int c)
 {
   std::cout << "Pay with cash: " << c << std::endl;
+  if (c > 0)
+  {
+    ((DataStore1 *)d)->temp_cash = c;
+    m->PayType(0);
+  }
 }
 
 void GP1::StartPump()
 {
   std::cout << "Start pumping gas" << std::endl;
+  m->Continue();
+  m->StartPump();
 }
 
 void GP1::Pump()
 {
   std::cout << "Pumping gas" << std::endl;
+  if (((DataStore1 *)d)->w == 1)
+  {
+    m->Pump();
+  }
+  else if (((DataStore1 *)d)->cash < ((DataStore1 *)d)->price * (((DataStore1 *)d)->L + 1))
+  {
+    m->StopPump();
+    m->Receipt();
+  }
+  else
+  {
+    m->Pump();
+  }
 }
 
 void GP1::StopPump()
 {
   std::cout << "Stop pumping gas" << std::endl;
+  m->StopPump();
+  m->Receipt();
 }
 
 GP2::GP2(DataStore2 *ds)
@@ -300,61 +327,93 @@ GP2::GP2(DataStore2 *ds)
 void GP2::Activate(float a, float b, float c)
 {
   std::cout << "Activate GasPump with Regular/Premium/Diesel: " << a << b << c << std::endl;
+  if (a > 0 && b > 0 && c > 0)
+  {
+    ((DataStore2 *)d)->temp_a = a;
+    ((DataStore2 *)d)->temp_b = b;
+    ((DataStore2 *)d)->temp_c = c;
+    m->Activate();
+  }
 }
 
 void GP2::Start()
 {
   std::cout << "Start GasPump" << std::endl;
+  m->Start();
 }
 
 void GP2::PayCash(int c)
 {
   std::cout << "Pay with cash: " << c << std::endl;
+  if (c > 0)
+  {
+    ((DataStore2 *)d)->temp_cash = c;
+    m->PayType(0);
+  }
 }
 
 void GP2::Cancel()
 {
   std::cout << "Transaction cancelled" << std::endl;
+  m->Cancel();
 }
 
 void GP2::Premium()
 {
   std::cout << "Premium gas selected" << std::endl;
+  m->SelectGas(3);
+  m->Continue();
 }
 
 void GP2::Regular()
 {
   std::cout << "Regular gas selected" << std::endl;
+  m->SelectGas(1);
+  m->Continue();
 }
 
 void GP2::Diesel()
 {
   std::cout << "Diesel gas selected" << std::endl;
+  m->SelectGas(2);
+  m->Continue();
 }
 
 void GP2::StartPump()
 {
   std::cout << "Start pumping gas" << std::endl;
+  m->StartPump();
 }
 
 void GP2::PumpGallon()
 {
   std::cout << "One gallon of gas is disposed" << std::endl;
+  if (((DataStore2 *)d)->cash < ((DataStore2 *)d)->price * (((DataStore2 *)d)->G + 1))
+  {
+    m->StopPump();
+  }
+  else
+  {
+    m->Pump();
+  }
 }
 
 void GP2::Stop()
 {
   std::cout << "Stop pumping gas" << std::endl;
+  m->StopPump();
 }
 
 void GP2::Receipt()
 {
   std::cout << "Receipt is requested" << std::endl;
+  m->Receipt();
 }
 
 void GP2::NoReceipt()
 {
   std::cout << "No receipt" << std::endl;
+  m->NoReceipt();
 }
 
 int main()

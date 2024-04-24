@@ -4,12 +4,14 @@
 #include <iostream>
 
 class MDAEFSM;
+class OP;
 
 class State
 {
 public:
   MDAEFSM *p;
-  State(MDAEFSM *mda);
+  OP *op;
+  State(MDAEFSM *mda, OP *op);
   State() : p(nullptr){};
   virtual void Activate();
   virtual void Start();
@@ -29,28 +31,28 @@ public:
 class Start : public State
 {
 public:
-  Start(MDAEFSM *mda);
+  Start(MDAEFSM *mda, OP *op);
   void Activate() override;
 };
 
 class S0 : public State
 {
 public:
-  S0(MDAEFSM *mda);
+  S0(MDAEFSM *mda, OP *op);
   void Start() override;
 };
 
 class S1 : public State
 {
 public:
-  S1(MDAEFSM *mda);
+  S1(MDAEFSM *mda, OP *op);
   void PayType(int t) override;
 };
 
 class S2 : public State
 {
 public:
-  S2(MDAEFSM *mda);
+  S2(MDAEFSM *mda, OP *op);
   void Reject() override;
   void Approved() override;
 };
@@ -58,7 +60,7 @@ public:
 class S3 : public State
 {
 public:
-  S3(MDAEFSM *mda);
+  S3(MDAEFSM *mda, OP *op);
   void Cancel() override;
   void Continue() override;
   void SelectGas(int g) override;
@@ -67,14 +69,14 @@ public:
 class S4 : public State
 {
 public:
-  S4(MDAEFSM *mda);
+  S4(MDAEFSM *mda, OP *op);
   void StartPump() override;
 };
 
 class S5 : public State
 {
 public:
-  S5(MDAEFSM *mda);
+  S5(MDAEFSM *mda, OP *op);
   void Pump() override;
   void StopPump() override;
 };
@@ -82,7 +84,7 @@ public:
 class S6 : public State
 {
 public:
-  S6(MDAEFSM *mda);
+  S6(MDAEFSM *mda, OP *op);
   void NoReceipt() override;
   void Receipt() override;
 };
@@ -100,7 +102,7 @@ public:
   S4 s4;
   S5 s5;
   S6 s6;
-  MDAEFSM();
+  MDAEFSM(OP *op);
   void Activate();
   void Start();
   void PayType(int t);
@@ -115,6 +117,105 @@ public:
   void NoReceipt();
   void Continue();
   void ChangeState(int x);
+};
+
+class AbstractFactory
+{
+public:
+  AbstractFactory();
+  virtual void StorePrices();
+  virtual void PayMsg();
+  virtual void StoreCash();
+  virtual void DisplayMenu();
+  virtual void RejectMsg();
+  virtual void SetPrice(int g);
+  virtual void SetInitValues();
+  virtual void PumpGasUnit();
+  virtual void GasPumpedMsg();
+  virtual void PrintReceipt();
+  virtual void CancelMsg();
+  virtual void ReturnCash();
+  virtual void SetPayType(int t);
+  virtual void EjectCard();
+};
+
+class StorePrices
+{
+public:
+};
+
+class StorePrices1
+{
+public:
+  void StorePrices();
+};
+
+class StorePrices2
+{
+public:
+  void StorePrices();
+};
+
+class ConcreteFactory1 : public AbstractFactory
+{
+public:
+  // DataStore1 *d;
+  ConcreteFactory1();
+  void StorePrices() override;
+  void PayMsg() override;
+  void StoreCash() override;
+  void DisplayMenu() override;
+  void RejectMsg() override;
+  void SetPrice(int g) override;
+  void SetInitValues() override;
+  void PumpGasUnit() override;
+  void GasPumpedMsg() override;
+  void PrintReceipt() override;
+  void CancelMsg() override;
+  void ReturnCash() override;
+  void SetPayType(int t) override;
+  void EjectCard() override;
+};
+
+class ConcreteFactory2 : public AbstractFactory
+{
+public:
+  // DataStore2 *d;
+  ConcreteFactory2();
+  void StorePrices() override;
+  void PayMsg() override;
+  void StoreCash() override;
+  void DisplayMenu() override;
+  void RejectMsg() override;
+  void SetPrice(int g) override;
+  void SetInitValues() override;
+  void PumpGasUnit() override;
+  void GasPumpedMsg() override;
+  void PrintReceipt() override;
+  void CancelMsg() override;
+  void ReturnCash() override;
+  void SetPayType(int t) override;
+  void EjectCard() override;
+};
+
+class OP
+{
+public:
+  OP();
+  void StorePrices();
+  void PayMsg();
+  void StoreCash();
+  void DisplayMenu();
+  void RejectMsg();
+  void SetPrice(int g);
+  void SetInitValues();
+  void PumpGasUnit();
+  void GasPumpedMsg();
+  void PrintReceipt();
+  void CancelMsg();
+  void ReturnCash();
+  void SetPayType(int t);
+  void EjectCard();
 };
 
 class DataStore
@@ -154,9 +255,10 @@ class GP1
 {
   MDAEFSM *m;
   DataStore *d;
+  AbstractFactory *af;
 
 public:
-  GP1(DataStore1 *ds, MDAEFSM *mda);
+  GP1(DataStore1 *ds, MDAEFSM *mda, AbstractFactory *af);
   void Activate(int a);
   void Start();
   void PayCredit();

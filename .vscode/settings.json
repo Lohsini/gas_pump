@@ -1,4 +1,9 @@
 {
+  "files.eol": "\n",
+  "editor.formatOnSave": true,
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
   "files.associations": {
     "__bit_reference": "cpp",
     "__config": "cpp",

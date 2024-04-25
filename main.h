@@ -183,222 +183,235 @@ public:
 class PayMsg
 {
 public:
+  virtual void payMsg();
 };
 
 class PayMsg1 : public PayMsg
 {
 public:
-  void PayMsg();
+  void payMsg();
 };
 
 class PayMsg2 : public PayMsg
 {
 public:
-  void PayMsg();
+  void payMsg();
 };
 
 class StoreCash
 {
 public:
+  virtual void storeCash();
 };
 
 class StoreCash1 : public StoreCash
 {
 public:
-  void StoreCash();
+  void storeCash();
 };
 
 class StoreCash2 : public StoreCash
 {
 public:
-  void StoreCash();
+  void storeCash();
 };
 
 class DisplayMenu
 {
 public:
+  virtual void displayMenu();
 };
 
 class DisplayMenu1 : public DisplayMenu
 {
 public:
-  void DisplayMenu();
+  void displayMenu();
 };
 
 class DisplayMenu2 : public DisplayMenu
 {
 public:
-  void DisplayMenu();
+  void displayMenu();
 };
 
 class RejectMsg
 {
 public:
+  virtual void rejectMsg();
 };
 
 class RejectMsg1 : public RejectMsg
 {
 public:
-  void RejectMsg();
+  void rejectMsg();
 };
 
 class RejectMsg2 : public RejectMsg
 {
 public:
-  void RejectMsg();
+  void rejectMsg();
 };
 
 class SetPrice
 {
 public:
+  virtual void setPrice();
 };
 
 class SetPrice1 : public SetPrice
 {
 public:
-  void SetPrice();
+  void setPrice();
 };
 
 class SetPrice2 : public SetPrice
 {
 public:
-  void SetPrice();
+  void setPrice();
 };
 
 class SetInitValues
 {
 public:
+  virtual void setInitValues();
 };
 
 class SetInitValues1 : public SetInitValues
 {
 public:
-  void SetInitValues();
+  void setInitValues();
 };
 
 class SetInitValues2 : public SetInitValues
 {
 public:
-  void SetInitValues();
+  void setInitValues();
 };
 
 class PumpGasUnit
 {
 public:
+  virtual void pumpGasUnit();
 };
 
 class PumpGasUnit1 : public PumpGasUnit
 {
 public:
-  void PumpGasUnit();
+  void pumpGasUnit();
 };
 
 class PumpGasUnit2 : public PumpGasUnit
 {
 public:
-  void PumpGasUnit();
+  void pumpGasUnit();
 };
 
 class GasPumpedMsg
 {
 public:
+  virtual void gasPumpedMsg();
 };
 
 class GasPumpedMsg1 : public GasPumpedMsg
 {
 public:
-  void GasPumpedMsg();
+  void gasPumpedMsg();
 };
 
 class GasPumpedMsg2 : public GasPumpedMsg
 {
 public:
-  void GasPumpedMsg();
+  void gasPumpedMsg();
 };
 
 class PrintReceipt
 {
 public:
+  virtual void printReceipt();
 };
 
 class PrintReceipt1 : public PrintReceipt
 {
 public:
-  void PrintReceipt();
+  void printReceipt();
 };
 
 class PrintReceipt2 : public PrintReceipt
 {
 public:
-  void PrintReceipt();
+  void printReceipt();
 };
 
 class CancelMsg
 {
 public:
+  virtual void cancelMsg();
 };
 
 class CancelMsg1 : public CancelMsg
 {
 public:
-  void CancelMsg();
+  void cancelMsg();
 };
 
 class CancelMsg2 : public CancelMsg
 {
 public:
-  void CancelMsg();
+  void cancelMsg();
 };
 
 class ReturnCash
 {
 public:
+  virtual void returnCash();
 };
 
 class ReturnCash1 : public ReturnCash
 {
 public:
-  void ReturnCash();
+  void returnCash();
 };
 
 class ReturnCash2 : public ReturnCash
 {
 public:
-  void ReturnCash();
+  void returnCash();
 };
 
 class SetPayType
 {
 public:
+  virtual void setPayType();
 };
 
 class SetPayType1 : public SetPayType
 {
 public:
-  void SetPayType();
+  void setPayType();
 };
 
 class SetPayType2 : public SetPayType
 {
 public:
-  void SetPayType();
+  void setPayType();
 };
 
 class EjectCard
 {
 public:
+  virtual void ejectCard();
 };
 
 class EjectCard1 : public EjectCard
 {
 public:
-  void EjectCard();
+  void ejectCard();
 };
 
 class EjectCard2 : public EjectCard
 {
 public:
-  void EjectCard();
+  void ejectCard();
 };
 
 //-------------end-------------
@@ -409,19 +422,19 @@ class AbstractFactory
 public:
   AbstractFactory();
   virtual StorePrices *StorePrices();
-  virtual void PayMsg();
-  virtual void StoreCash();
-  virtual void DisplayMenu();
-  virtual void RejectMsg();
-  virtual void SetPrice(int g);
-  virtual void SetInitValues();
-  virtual void PumpGasUnit();
-  virtual void GasPumpedMsg();
-  virtual void PrintReceipt();
-  virtual void CancelMsg();
-  virtual void ReturnCash();
-  virtual void SetPayType(int t);
-  virtual void EjectCard();
+  virtual PayMsg *PayMsg();
+  virtual StoreCash *StoreCash();
+  virtual DisplayMenu *DisplayMenu();
+  virtual RejectMsg *RejectMsg();
+  virtual SetPrice *SetPrice(int g);
+  virtual SetInitValues *SetInitValues();
+  virtual PumpGasUnit *PumpGasUnit();
+  virtual GasPumpedMsg *GasPumpedMsg();
+  virtual PrintReceipt *PrintReceipt();
+  virtual CancelMsg *CancelMsg();
+  virtual ReturnCash *ReturnCash();
+  virtual SetPayType *SetPayType(int t);
+  virtual EjectCard *EjectCard();
 };
 
 class ConcreteFactory1 : public AbstractFactory
@@ -432,19 +445,19 @@ public:
   int getIntData(std::string s);
   void setIntData(std::string s, int n);
   StorePrices1 *StorePrices() override;
-  void PayMsg() override;
-  void StoreCash() override;
-  void DisplayMenu() override;
-  void RejectMsg() override;
-  void SetPrice(int g) override;
-  void SetInitValues() override;
-  void PumpGasUnit() override;
-  void GasPumpedMsg() override;
-  void PrintReceipt() override;
-  void CancelMsg() override;
-  void ReturnCash() override;
-  void SetPayType(int t) override;
-  void EjectCard() override;
+  PayMsg1 *PayMsg() override;
+  StoreCash1 *StoreCash() override;
+  DisplayMenu1 *DisplayMenu() override;
+  RejectMsg1 *RejectMsg() override;
+  SetPrice1 *SetPrice(int g) override;
+  SetInitValues1 *SetInitValues() override;
+  PumpGasUnit1 *PumpGasUnit() override;
+  GasPumpedMsg1 *GasPumpedMsg() override;
+  PrintReceipt1 *PrintReceipt() override;
+  CancelMsg1 *CancelMsg() override;
+  ReturnCash1 *ReturnCash() override;
+  SetPayType1 *SetPayType(int t) override;
+  EjectCard1 *EjectCard() override;
 };
 
 class ConcreteFactory2 : public AbstractFactory
@@ -453,19 +466,19 @@ public:
   DataStore2 *d;
   ConcreteFactory2(DataStore2 *d);
   StorePrices2 *StorePrices() override;
-  void PayMsg() override;
-  void StoreCash() override;
-  void DisplayMenu() override;
-  void RejectMsg() override;
-  void SetPrice(int g) override;
-  void SetInitValues() override;
-  void PumpGasUnit() override;
-  void GasPumpedMsg() override;
-  void PrintReceipt() override;
-  void CancelMsg() override;
-  void ReturnCash() override;
-  void SetPayType(int t) override;
-  void EjectCard() override;
+  PayMsg2 *PayMsg() override;
+  StoreCash2 *StoreCash() override;
+  DisplayMenu2 *DisplayMenu() override;
+  RejectMsg2 *RejectMsg() override;
+  SetPrice2 *SetPrice(int g) override;
+  SetInitValues2 *SetInitValues() override;
+  PumpGasUnit2 *PumpGasUnit() override;
+  GasPumpedMsg2 *GasPumpedMsg() override;
+  PrintReceipt2 *PrintReceipt() override;
+  CancelMsg2 *CancelMsg() override;
+  ReturnCash2 *ReturnCash() override;
+  SetPayType2 *SetPayType(int t) override;
+  EjectCard2 *EjectCard() override;
 };
 
 //-------------end-------------
@@ -480,8 +493,8 @@ public:
   RejectMsg *rm;
   SetPrice *setp;
   SetInitValues *sv;
-  PumpGasUnit *psu;
-  GasPumpedMsg *gpu;
+  PumpGasUnit *pgu;
+  GasPumpedMsg *gpm;
   PrintReceipt *pr;
   CancelMsg *cm;
   ReturnCash *rc;

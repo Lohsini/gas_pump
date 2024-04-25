@@ -280,8 +280,8 @@ StorePrices1::StorePrices1(ConcreteFactory1 *cf1)
 void StorePrices1::storePrices()
 {
   // d->price = d->temp_a;
-  cf1->setIntData("price", cf1->getIntData("temp_a"));
-  int price = cf1->getIntData("price");
+  cf1->setData("price", cf1->getData("temp_a"));
+  int price = cf1->getData("price");
   std::cout << "   " << price << " is the gas price" << std::endl;
 }
 
@@ -295,12 +295,12 @@ void StorePrices2::storePrices()
   // d->Rprice = d->temp_a;
   // d->Pprice = d->temp_b;
   // d->Dprice = d->temp_c;
-  cf2->setIntData("Rprice", cf2->getIntData("temp_a"));
-  cf2->setIntData("Pprice", cf2->getIntData("temp_b"));
-  cf2->setIntData("Dprice", cf2->getIntData("temp_c"));
-  float Rprice = cf2->getIntData("Rprice");
-  float Pprice = cf2->getIntData("Pprice");
-  float Dprice = cf2->getIntData("Dprice");
+  cf2->setData("Rprice", cf2->getData("temp_a"));
+  cf2->setData("Pprice", cf2->getData("temp_b"));
+  cf2->setData("Dprice", cf2->getData("temp_c"));
+  float Rprice = cf2->getData("Rprice");
+  float Pprice = cf2->getData("Pprice");
+  float Dprice = cf2->getData("Dprice");
   std::cout << "   " << Rprice << " is the Regular price" << std::endl;
   std::cout << "   " << Pprice << " is the Premium price" << std::endl;
   std::cout << "   " << Dprice << " is the Diesel price" << std::endl;
@@ -331,7 +331,7 @@ StoreCash1::StoreCash1(ConcreteFactory1 *cf1)
 void StoreCash1::storeCash()
 {
   // d->cash = d->temp_cash;
-  cf1->setIntData("cash", cf1->getIntData("temp_cash"));
+  cf1->setData("cash", cf1->getData("temp_cash"));
 }
 
 StoreCash2::StoreCash2(ConcreteFactory2 *cf2)
@@ -342,7 +342,7 @@ StoreCash2::StoreCash2(ConcreteFactory2 *cf2)
 void StoreCash2::storeCash()
 {
   // d->cash = d->temp_cash;
-  cf2->setIntData("cash", cf2->getIntData("temp_cash"));
+  cf2->setData("cash", cf2->getData("temp_cash"));
 }
 
 void DisplayMenu::displayMenu() {}
@@ -372,7 +372,8 @@ void RejectMsg1::rejectMsg()
 
 void RejectMsg2::rejectMsg()
 {
-  std::cout << "RejectMsg2::RejectMsg() called." << std::endl;
+  // std::cout << "RejectMsg2::RejectMsg() called." << std::endl;
+  // no used
 }
 
 void SetPrice::setPrice(int g) {}
@@ -380,6 +381,7 @@ void SetPrice::setPrice(int g) {}
 void SetPrice1::setPrice(int g)
 {
   // std::cout << "SetPrice1::SetPrice() called." << std::endl;
+  // no used
 }
 
 SetPrice2::SetPrice2(ConcreteFactory2 *cf2)
@@ -395,15 +397,15 @@ void SetPrice2::setPrice(int g)
   // Premium: g = 3
   if (g == 1)
   {
-    cf2->setIntData("price", cf2->getIntData("Rprice"));
+    cf2->setData("price", cf2->getData("Rprice"));
   }
   else if (g == 2)
   {
-    cf2->setIntData("price", cf2->getIntData("Dprice"));
+    cf2->setData("price", cf2->getData("Dprice"));
   }
   else if (g == 3)
   {
-    cf2->setIntData("price", cf2->getIntData("Pprice"));
+    cf2->setData("price", cf2->getData("Pprice"));
   }
 
   std::cout << "   StartPump (enter 7)" << std::endl;
@@ -420,8 +422,8 @@ void SetInitValues1::setInitValues()
 {
   // d->total = 0;
   // d->L = 0;
-  cf1->setIntData("total", 0);
-  cf1->setIntData("L", 0);
+  cf1->setData("total", 0);
+  cf1->setData("L", 0);
   std::cout << "   Pump (enter 8)" << std::endl;
 }
 
@@ -434,8 +436,8 @@ void SetInitValues2::setInitValues()
 {
   // d->total = 0;
   // d->G = 0;
-  cf2->setIntData("total", 0);
-  cf2->setIntData("G", 0);
+  cf2->setData("total", 0);
+  cf2->setData("G", 0);
   std::cout << "   PumpGallon (enter 8)" << std::endl;
 }
 
@@ -450,9 +452,9 @@ void PumpGasUnit1::pumpGasUnit()
 {
   // d->L = d->L + 1
   // d->total = d->total + (d->L * d->price)
-  cf1->setIntData("L", cf1->getIntData("L") + 1);
-  int compute = (cf1->getIntData("L") * cf1->getIntData("price"));
-  cf1->setIntData("total", compute);
+  cf1->setData("L", cf1->getData("L") + 1);
+  int compute = (cf1->getData("L") * cf1->getData("price"));
+  cf1->setData("total", compute);
 }
 
 PumpGasUnit2::PumpGasUnit2(ConcreteFactory2 *cf2)
@@ -464,9 +466,9 @@ void PumpGasUnit2::pumpGasUnit()
 {
   // d->G = d->G + 1
   // d->total = d->total + (d->G * d->price)
-  cf2->setIntData("G", cf2->getIntData("G") + 1);
-  float compute = (cf2->getIntData("G") * cf2->getIntData("price"));
-  cf2->setIntData("total", compute);
+  cf2->setData("G", cf2->getData("G") + 1);
+  float compute = (cf2->getData("G") * cf2->getData("price"));
+  cf2->setData("total", compute);
 }
 
 void GasPumpedMsg::gasPumpedMsg() {}
@@ -478,8 +480,8 @@ GasPumpedMsg1::GasPumpedMsg1(ConcreteFactory1 *cf1)
 
 void GasPumpedMsg1::gasPumpedMsg()
 {
-  int L = cf1->getIntData("L");
-  int total = cf1->getIntData("total");
+  int L = cf1->getData("L");
+  int total = cf1->getData("total");
   std::cout << "   Added " << L << " L gas" << std::endl;
   std::cout << "   Total is " << total << std::endl;
 }
@@ -491,8 +493,8 @@ GasPumpedMsg2::GasPumpedMsg2(ConcreteFactory2 *cf2)
 
 void GasPumpedMsg2::gasPumpedMsg()
 {
-  int G = cf2->getIntData("G");
-  float total = cf2->getIntData("total");
+  int G = cf2->getData("G");
+  float total = cf2->getData("total");
   std::cout << "   Added " << G << " G gas" << std::endl;
   std::cout << "   Total is " << total << std::endl;
 }
@@ -506,7 +508,7 @@ PrintReceipt1::PrintReceipt1(ConcreteFactory1 *cf1)
 
 void PrintReceipt1::printReceipt()
 {
-  int total = cf1->getIntData("total");
+  int total = cf1->getData("total");
   std::cout << "   Receipt:" << std::endl;
   std::cout << "   Total is " << total << std::endl;
 }
@@ -518,7 +520,7 @@ PrintReceipt2::PrintReceipt2(ConcreteFactory2 *cf2)
 
 void PrintReceipt2::printReceipt()
 {
-  float total = cf2->getIntData("total");
+  float total = cf2->getData("total");
   std::cout << "   Receipt:" << std::endl;
   std::cout << "   Total is " << total << std::endl;
 }
@@ -544,11 +546,11 @@ ReturnCash1::ReturnCash1(ConcreteFactory1 *cf1)
 
 void ReturnCash1::returnCash()
 {
-  int w = cf1->getIntData("w");
+  int w = cf1->getData("w");
   if (w == 0)
   {
-    int total = cf1->getIntData("total");
-    int cash = cf1->getIntData("cash");
+    int total = cf1->getData("total");
+    int cash = cf1->getData("cash");
     int value = cash - total;
     std::cout << "   Return cash: " << value << std::endl;
   }
@@ -561,8 +563,8 @@ ReturnCash2::ReturnCash2(ConcreteFactory2 *cf2)
 
 void ReturnCash2::returnCash()
 {
-  float total = cf2->getIntData("total");
-  float cash = cf2->getIntData("cash");
+  float total = cf2->getData("total");
+  float cash = cf2->getData("cash");
   float value = cash - total;
   std::cout << "   Return cash: " << value << std::endl;
 }
@@ -577,13 +579,14 @@ SetPayType1::SetPayType1(ConcreteFactory1 *cf1)
 void SetPayType1::setPayType(int t)
 {
   // d->w = t;
-  cf1->setIntData("w", t);
-  int w = cf1->getIntData("w");
+  cf1->setData("w", t);
+  int w = cf1->getData("w");
 }
 
 void SetPayType2::setPayType(int t)
 {
   // std::cout << "SetPayType2::SetPayType() called." << std::endl;
+  // no used
 }
 
 void EjectCard::ejectCard() {}
@@ -595,7 +598,8 @@ void EjectCard1::ejectCard()
 
 void EjectCard2::ejectCard()
 {
-  std::cout << "EjectCard2::EjectCard() called." << std::endl;
+  // std::cout << "EjectCard2::EjectCard() called." << std::endl;
+  // no used
 }
 
 //-------------end-------------
@@ -692,7 +696,7 @@ ConcreteFactory1::ConcreteFactory1(DataStore1 *d)
   this->d = d;
 }
 
-int ConcreteFactory1::getIntData(std::string s)
+int ConcreteFactory1::getData(std::string s)
 {
   if (s == "price")
   {
@@ -728,7 +732,7 @@ int ConcreteFactory1::getIntData(std::string s)
   }
 }
 
-void ConcreteFactory1::setIntData(std::string s, int n)
+void ConcreteFactory1::setData(std::string s, int n)
 {
   if (s == "price")
   {
@@ -849,7 +853,7 @@ ConcreteFactory2::ConcreteFactory2(DataStore2 *d)
   this->d = d;
 }
 
-float ConcreteFactory2::getIntData(std::string s)
+float ConcreteFactory2::getData(std::string s)
 {
   if (s == "temp_a")
   {
@@ -901,7 +905,7 @@ float ConcreteFactory2::getIntData(std::string s)
   }
 }
 
-void ConcreteFactory2::setIntData(std::string s, float n)
+void ConcreteFactory2::setData(std::string s, float n)
 {
   if (s == "temp_a")
   {

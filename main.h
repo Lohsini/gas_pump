@@ -16,13 +16,13 @@ public:
 class DataStore1 : public DataStore
 {
 public:
-  int temp_a = 0;
-  int price = 0;
-  int L = 0;
-  int total = 0;
-  int temp_cash = 0;
-  int w = 0;
-  int cash = 0;
+  int temp_a;
+  int price;
+  int L;
+  int total;
+  int temp_cash;
+  int w;
+  int cash;
 };
 
 class DataStore2 : public DataStore
@@ -471,8 +471,8 @@ class ConcreteFactory1 : public AbstractFactory
 public:
   DataStore1 *d;
   ConcreteFactory1(DataStore1 *d);
-  int getIntData(std::string s);
-  void setIntData(std::string s, int n);
+  int getData(std::string s);
+  void setData(std::string s, int n);
   StorePrices1 *StorePrices() override;
   PayMsg1 *PayMsg() override;
   StoreCash1 *StoreCash() override;
@@ -494,8 +494,8 @@ class ConcreteFactory2 : public AbstractFactory
 public:
   DataStore2 *d;
   ConcreteFactory2(DataStore2 *d);
-  float getIntData(std::string s);
-  void setIntData(std::string s, float n);
+  float getData(std::string s);
+  void setData(std::string s, float n);
   StorePrices2 *StorePrices() override;
   PayMsg2 *PayMsg() override;
   StoreCash2 *StoreCash() override;

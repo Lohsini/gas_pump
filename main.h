@@ -36,7 +36,7 @@ public:
   float Rprice;
   float Pprice;
   int cash;
-  int total;
+  float total;
   int G;
   float price;
 };
@@ -216,6 +216,8 @@ public:
 class StoreCash2 : public StoreCash
 {
 public:
+  ConcreteFactory2 *cf2;
+  StoreCash2(ConcreteFactory2 *cf2);
   void storeCash();
 };
 
@@ -258,19 +260,21 @@ public:
 class SetPrice
 {
 public:
-  virtual void setPrice();
+  virtual void setPrice(int g);
 };
 
 class SetPrice1 : public SetPrice
 {
 public:
-  void setPrice();
+  void setPrice(int g);
 };
 
 class SetPrice2 : public SetPrice
 {
 public:
-  void setPrice();
+  ConcreteFactory2 *cf2;
+  SetPrice2(ConcreteFactory2 *cf2);
+  void setPrice(int g);
 };
 
 class SetInitValues
@@ -290,6 +294,8 @@ public:
 class SetInitValues2 : public SetInitValues
 {
 public:
+  ConcreteFactory2 *cf2;
+  SetInitValues2(ConcreteFactory2 *cf2);
   void setInitValues();
 };
 
@@ -310,6 +316,8 @@ public:
 class PumpGasUnit2 : public PumpGasUnit
 {
 public:
+  ConcreteFactory2 *cf2;
+  PumpGasUnit2(ConcreteFactory2 *cf2);
   void pumpGasUnit();
 };
 
@@ -330,6 +338,8 @@ public:
 class GasPumpedMsg2 : public GasPumpedMsg
 {
 public:
+  ConcreteFactory2 *cf2;
+  GasPumpedMsg2(ConcreteFactory2 *cf2);
   void gasPumpedMsg();
 };
 
@@ -350,6 +360,8 @@ public:
 class PrintReceipt2 : public PrintReceipt
 {
 public:
+  ConcreteFactory2 *cf2;
+  PrintReceipt2(ConcreteFactory2 *cf2);
   void printReceipt();
 };
 
@@ -388,6 +400,8 @@ public:
 class ReturnCash2 : public ReturnCash
 {
 public:
+  ConcreteFactory2 *cf2;
+  ReturnCash2(ConcreteFactory2 *cf2);
   void returnCash();
 };
 
@@ -408,8 +422,6 @@ public:
 class SetPayType2 : public SetPayType
 {
 public:
-  // ConcreteFactory2 *cf2;
-  // SetPayType2(ConcreteFactory2 *cf2);
   void setPayType(int t);
 };
 
@@ -482,6 +494,8 @@ class ConcreteFactory2 : public AbstractFactory
 public:
   DataStore2 *d;
   ConcreteFactory2(DataStore2 *d);
+  float getIntData(std::string s);
+  void setIntData(std::string s, float n);
   StorePrices2 *StorePrices() override;
   PayMsg2 *PayMsg() override;
   StoreCash2 *StoreCash() override;

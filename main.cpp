@@ -255,11 +255,11 @@ void S6::Receipt()
   p->ChangeState(0);
 }
 
-GP1::GP1(DataStore1 *ds, MDAEFSM *mda, AbstractFactory *af)
+GP1::GP1(DataStore1 *ds, MDAEFSM *mda, ConcreteFactory1 *cf1)
 {
   this->d = ds;
   this->m = mda;
-  this->af = af;
+  this->cf1 = cf1;
 }
 
 void GP1::Activate(int a)
@@ -267,7 +267,11 @@ void GP1::Activate(int a)
   std::cout << "Activate GasPump price with parameter: " << a << std::endl;
   if (a > 0)
   {
+
     ((DataStore1 *)d)->temp_a = a;
+
+    std::cout << ((DataStore1 *)d)->temp_a << std::endl;
+
     m->Activate();
   }
 }
@@ -344,9 +348,11 @@ void GP1::StopPump()
   m->Receipt();
 }
 
-GP2::GP2(DataStore2 *ds)
+GP2::GP2(DataStore2 *ds, MDAEFSM *mda, ConcreteFactory2 *cf2)
 {
   this->d = ds;
+  this->m = mda;
+  this->cf2 = cf2;
 }
 
 void GP2::Activate(float a, float b, float c)
@@ -441,359 +447,583 @@ void GP2::NoReceipt()
   m->NoReceipt();
 }
 
-OP::OP() {}
+OP::OP(AbstractFactory *af)
+{
+  this->af = af;
+}
 
 void OP::StorePrices()
 {
   std::cout << "op->StorePrices() called." << std::endl;
-  StorePrices();
+  this->storep = af->StorePrices();
+  storep->storePrices();
 }
 
 void OP::PayMsg()
 {
   std::cout << "op->PayMsg() called." << std::endl;
+  af->PayMsg();
 }
 
 void OP::StoreCash()
 {
   std::cout << "op->StoreCash() called." << std::endl;
+  af->StoreCash();
 }
 
 void OP::DisplayMenu()
 {
   std::cout << "op->DisplayMenu() called." << std::endl;
+  af->DisplayMenu();
 }
 
 void OP::RejectMsg()
 {
   std::cout << "op->RejectMsg() called." << std::endl;
+  af->RejectMsg();
 }
 
 void OP::SetPrice(int g)
 {
   std::cout << "op->SetPrice() called with gas type: " << g << std::endl;
+  af->SetPrice(g);
 }
 
 void OP::SetInitValues()
 {
   std::cout << "op->SetInitValues() called." << std::endl;
+  af->SetInitValues();
 }
 
 void OP::PumpGasUnit()
 {
   std::cout << "op->PumpGasUnit() called." << std::endl;
+  af->PumpGasUnit();
 }
 
 void OP::GasPumpedMsg()
 {
   std::cout << "op->GasPumpedMsg() called." << std::endl;
+  af->GasPumpedMsg();
 }
 
 void OP::PrintReceipt()
 {
   std::cout << "op->PrintReceipt() called." << std::endl;
+  af->PrintReceipt();
 }
 
 void OP::CancelMsg()
 {
   std::cout << "op->CancelMsg() called." << std::endl;
+  af->CancelMsg();
 }
 
 void OP::ReturnCash()
 {
   std::cout << "op->ReturnCash() called." << std::endl;
+  af->ReturnCash();
 }
 
 void OP::SetPayType(int t)
 {
   std::cout << "op->SetPayType() called with payment type: " << t << std::endl;
+  af->SetPayType(t);
 }
 
 void OP::EjectCard()
 {
   std::cout << "op->EjectCard() called." << std::endl;
+  af->EjectCard();
 }
 
-AbstractFactory::AbstractFactory()
+void StorePrices::storePrices() {}
+
+StorePrices1::StorePrices1(ConcreteFactory1 *cf1)
 {
-  // Constructor implementation
+  this->cf1 = cf1;
 }
 
-void AbstractFactory::StorePrices()
+void StorePrices1::storePrices()
+{
+  std::cout << "StorePrices1::StorePrices() called." << std::endl;
+  // d->price = d->temp_a;
+  int result = cf1->getIntData("temp_a");
+  // cf1->setIntData("price", cf1->getIntData("temp_a"));
+  // int result = cf1->getIntData("price");
+  std::cout << result << " is the gas price" << std::endl;
+}
+
+StorePrices2::StorePrices2(ConcreteFactory2 *cf2)
+{
+  this->cf2 = cf2;
+}
+
+void StorePrices2::storePrices()
+{
+  std::cout << "StorePrices2::StorePrices() called." << std::endl;
+  // d->price = d->temp_a;
+}
+
+void PayMsg1::PayMsg()
+{
+  std::cout << "PayMsg1::PayMsg() called." << std::endl;
+}
+
+void PayMsg2::PayMsg()
+{
+  std::cout << "PayMsg2::PayMsg() called." << std::endl;
+}
+
+void StoreCash1::StoreCash()
+{
+  std::cout << "StoreCash1::StoreCash() called." << std::endl;
+}
+
+void StoreCash2::StoreCash()
+{
+  std::cout << "StoreCash2::StoreCash() called." << std::endl;
+}
+
+void DisplayMenu1::DisplayMenu()
+{
+  std::cout << "DisplayMenu1::DisplayMenu() called." << std::endl;
+}
+
+void DisplayMenu2::DisplayMenu()
+{
+  std::cout << "DisplayMenu2::DisplayMenu() called." << std::endl;
+}
+
+void RejectMsg1::RejectMsg()
+{
+  std::cout << "RejectMsg1::RejectMsg() called." << std::endl;
+}
+
+void RejectMsg2::RejectMsg()
+{
+  std::cout << "RejectMsg2::RejectMsg() called." << std::endl;
+}
+
+void SetPrice1::SetPrice()
+{
+  std::cout << "SetPrice1::SetPrice() called." << std::endl;
+}
+
+void SetPrice2::SetPrice()
+{
+  std::cout << "SetPrice2::SetPrice() called." << std::endl;
+}
+
+void SetInitValues1::SetInitValues()
+{
+  std::cout << "SetInitValues1::SetInitValues() called." << std::endl;
+}
+
+void SetInitValues2::SetInitValues()
+{
+  std::cout << "SetInitValues2::SetInitValues() called." << std::endl;
+}
+
+void PumpGasUnit1::PumpGasUnit()
+{
+  std::cout << "PumpGasUnit1::PumpGasUnit() called." << std::endl;
+}
+
+void PumpGasUnit2::PumpGasUnit()
+{
+  std::cout << "PumpGasUnit2::PumpGasUnit() called." << std::endl;
+}
+
+void GasPumpedMsg1::GasPumpedMsg()
+{
+  std::cout << "GasPumpedMsg1::GasPumpedMsg() called." << std::endl;
+}
+
+void GasPumpedMsg2::GasPumpedMsg()
+{
+  std::cout << "GasPumpedMsg2::GasPumpedMsg() called." << std::endl;
+}
+
+void PrintReceipt1::PrintReceipt()
+{
+  std::cout << "PrintReceipt1::PrintReceipt() called." << std::endl;
+}
+
+void PrintReceipt2::PrintReceipt()
+{
+  std::cout << "PrintReceipt2::PrintReceipt() called." << std::endl;
+}
+
+void CancelMsg1::CancelMsg()
+{
+  std::cout << "CancelMsg1::CancelMsg() called." << std::endl;
+}
+
+void CancelMsg2::CancelMsg()
+{
+  std::cout << "CancelMsg2::CancelMsg() called." << std::endl;
+}
+
+void ReturnCash1::ReturnCash()
+{
+  std::cout << "ReturnCash1::ReturnCash() called." << std::endl;
+}
+
+void ReturnCash2::ReturnCash()
+{
+  std::cout << "ReturnCash2::ReturnCash() called." << std::endl;
+}
+
+void SetPayType1::SetPayType()
+{
+  std::cout << "SetPayType1::SetPayType() called." << std::endl;
+}
+
+void SetPayType2::SetPayType()
+{
+  std::cout << "SetPayType2::SetPayType() called." << std::endl;
+}
+
+void EjectCard1::EjectCard()
+{
+  std::cout << "EjectCard1::EjectCard() called." << std::endl;
+}
+
+void EjectCard2::EjectCard()
+{
+  std::cout << "EjectCard2::EjectCard() called." << std::endl;
+}
+
+AbstractFactory::AbstractFactory() {}
+
+StorePrices *AbstractFactory::StorePrices()
 {
   std::cout << "AbstractFactory::StorePrices() called." << std::endl;
-  // Implementation of StorePrices
+  return nullptr;
 }
 
 void AbstractFactory::PayMsg()
 {
   std::cout << "AbstractFactory::PayMsg() called." << std::endl;
-  // Implementation of PayMsg
 }
 
 void AbstractFactory::StoreCash()
 {
   std::cout << "AbstractFactory::StoreCash() called." << std::endl;
-  // Implementation of StoreCash
 }
 
 void AbstractFactory::DisplayMenu()
 {
   std::cout << "AbstractFactory::DisplayMenu() called." << std::endl;
-  // Implementation of DisplayMenu
 }
 
 void AbstractFactory::RejectMsg()
 {
   std::cout << "AbstractFactory::RejectMsg() called." << std::endl;
-  // Implementation of RejectMsg
 }
 
 void AbstractFactory::SetPrice(int g)
 {
-  std::cout << "AbstractFactory::SetPrice() called with gas type: " << g << std::endl;
-  // Implementation of SetPrice
+  std::cout << "AbstractFactory::SetPrice() called with parameter: " << g << std::endl;
 }
 
 void AbstractFactory::SetInitValues()
 {
   std::cout << "AbstractFactory::SetInitValues() called." << std::endl;
-  // Implementation of SetInitValues
 }
 
 void AbstractFactory::PumpGasUnit()
 {
   std::cout << "AbstractFactory::PumpGasUnit() called." << std::endl;
-  // Implementation of PumpGasUnit
 }
 
 void AbstractFactory::GasPumpedMsg()
 {
   std::cout << "AbstractFactory::GasPumpedMsg() called." << std::endl;
-  // Implementation of GasPumpedMsg
 }
 
 void AbstractFactory::PrintReceipt()
 {
   std::cout << "AbstractFactory::PrintReceipt() called." << std::endl;
-  // Implementation of PrintReceipt
 }
 
 void AbstractFactory::CancelMsg()
 {
   std::cout << "AbstractFactory::CancelMsg() called." << std::endl;
-  // Implementation of CancelMsg
 }
 
 void AbstractFactory::ReturnCash()
 {
   std::cout << "AbstractFactory::ReturnCash() called." << std::endl;
-  // Implementation of ReturnCash
 }
 
 void AbstractFactory::SetPayType(int t)
 {
-  std::cout << "AbstractFactory::SetPayType() called with payment type: " << t << std::endl;
-  // Implementation of SetPayType
+  std::cout << "AbstractFactory::SetPayType() called with parameter: " << t << std::endl;
 }
 
 void AbstractFactory::EjectCard()
 {
   std::cout << "AbstractFactory::EjectCard() called." << std::endl;
-  // Implementation of EjectCard
 }
 
-void StorePrices1::StorePrices()
+ConcreteFactory1::ConcreteFactory1(DataStore1 *d)
 {
-  std::cout << "StorePrices1::StorePrices() called." << std::endl;
-  // d->price = d->temp_a;
+  this->d = d;
 }
 
-ConcreteFactory1::ConcreteFactory1() {}
+int ConcreteFactory1::getIntData(std::string s)
+{
+  std::cout << "get int Data from CF1" << std::endl;
+  if (s == "price")
+  {
+    return d->price;
+  }
+  else if (s == "cash")
+  {
+    return d->cash;
+  }
+  else if (s == "L")
+  {
+    return d->L;
+  }
+  else if (s == "w")
+  {
+    return d->w;
+  }
+  else if (s == "temp_a")
+  {
+    return d->temp_a;
+  }
+  else if (s == "temp_cash")
+  {
+    return d->temp_cash;
+  }
+  else if (s == "total")
+  {
+    return d->total;
+  }
+  else
+  {
+    return 0;
+  }
+}
 
-void ConcreteFactory1::StorePrices()
+void ConcreteFactory1::setIntData(std::string s, int n)
+{
+  std::cout << "set int Data from CF1" << std::endl;
+  if (s == "price")
+  {
+    d->price = n;
+  }
+  else if (s == "cash")
+  {
+    d->cash = n;
+  }
+  else if (s == "L")
+  {
+    d->L = n;
+  }
+  else if (s == "w")
+  {
+    d->w = n;
+  }
+  else if (s == "temp_a")
+  {
+    d->temp_a = n;
+  }
+  else if (s == "temp_cash")
+  {
+    d->temp_cash = n;
+  }
+  else if (s == "total")
+  {
+    d->total = n;
+  }
+}
+
+StorePrices1 *ConcreteFactory1::StorePrices()
 {
   std::cout << "ConcreteFactory1::StorePrices() called." << std::endl;
-  StorePrices1 *c;
-  c->StorePrices();
+  StorePrices1 *storePrices1 = new StorePrices1(this);
+  return storePrices1;
 }
 
 void ConcreteFactory1::PayMsg()
 {
   std::cout << "ConcreteFactory1::PayMsg() called." << std::endl;
-  // Implementation of PayMsg for ConcreteFactory1
+  PayMsg1 PayMsg1;
 }
 
 void ConcreteFactory1::StoreCash()
 {
   std::cout << "ConcreteFactory1::StoreCash() called." << std::endl;
-  // Implementation of StoreCash for ConcreteFactory1
+  StoreCash1 StoreCash1;
 }
 
 void ConcreteFactory1::DisplayMenu()
 {
   std::cout << "ConcreteFactory1::DisplayMenu() called." << std::endl;
-  // Implementation of DisplayMenu for ConcreteFactory1
+  DisplayMenu1 DisplayMenu1;
 }
 
 void ConcreteFactory1::RejectMsg()
 {
   std::cout << "ConcreteFactory1::RejectMsg() called." << std::endl;
-  // Implementation of RejectMsg for ConcreteFactory1
+  RejectMsg1 RejectMsg1;
 }
 
 void ConcreteFactory1::SetPrice(int g)
 {
   std::cout << "ConcreteFactory1::SetPrice() called with gas type: " << g << std::endl;
-  // Implementation of SetPrice for ConcreteFactory1
+  SetPrice1 SetPrice1;
 }
 
 void ConcreteFactory1::SetInitValues()
 {
   std::cout << "ConcreteFactory1::SetInitValues() called." << std::endl;
-  // Implementation of SetInitValues for ConcreteFactory1
+  SetInitValues1 SetInitValues1;
 }
 
 void ConcreteFactory1::PumpGasUnit()
 {
   std::cout << "ConcreteFactory1::PumpGasUnit() called." << std::endl;
-  // Implementation of PumpGasUnit for ConcreteFactory1
+  PumpGasUnit1 PumpGasUnit1;
 }
 
 void ConcreteFactory1::GasPumpedMsg()
 {
   std::cout << "ConcreteFactory1::GasPumpedMsg() called." << std::endl;
-  // Implementation of GasPumpedMsg for ConcreteFactory1
+  GasPumpedMsg1 GasPumpedMsg1;
 }
 
 void ConcreteFactory1::PrintReceipt()
 {
   std::cout << "ConcreteFactory1::PrintReceipt() called." << std::endl;
-  // Implementation of PrintReceipt for ConcreteFactory1
+  PrintReceipt1 PrintReceipt1;
 }
 
 void ConcreteFactory1::CancelMsg()
 {
   std::cout << "ConcreteFactory1::CancelMsg() called." << std::endl;
-  // Implementation of CancelMsg for ConcreteFactory1
+  CancelMsg1 CancelMsg1;
 }
 
 void ConcreteFactory1::ReturnCash()
 {
   std::cout << "ConcreteFactory1::ReturnCash() called." << std::endl;
-  // Implementation of ReturnCash for ConcreteFactory1
+  ReturnCash1 ReturnCash1;
 }
 
 void ConcreteFactory1::SetPayType(int t)
 {
   std::cout << "ConcreteFactory1::SetPayType() called with payment type: " << t << std::endl;
-  // Implementation of SetPayType for ConcreteFactory1
+  SetPayType1 SetPayType1;
 }
 
 void ConcreteFactory1::EjectCard()
 {
   std::cout << "ConcreteFactory1::EjectCard() called." << std::endl;
-  // Implementation of EjectCard for ConcreteFactory1
+  EjectCard1 EjectCard1;
 }
 
-ConcreteFactory2::ConcreteFactory2()
+ConcreteFactory2::ConcreteFactory2(DataStore2 *d)
 {
-  // Constructor implementation
+  this->d = d;
 }
 
-void ConcreteFactory2::StorePrices()
+StorePrices2 *ConcreteFactory2::StorePrices()
 {
   std::cout << "ConcreteFactory2::StorePrices() called." << std::endl;
-  // Implementation of StorePrices for ConcreteFactory2
+  StorePrices2 *storePrices2 = new StorePrices2(this);
+  return storePrices2;
 }
 
 void ConcreteFactory2::PayMsg()
 {
   std::cout << "ConcreteFactory2::PayMsg() called." << std::endl;
-  // Implementation of PayMsg for ConcreteFactory2
+  PayMsg2 PayMsg2;
 }
 
 void ConcreteFactory2::StoreCash()
 {
   std::cout << "ConcreteFactory2::StoreCash() called." << std::endl;
-  // Implementation of StoreCash for ConcreteFactory2
+  StoreCash2 StoreCash2;
 }
 
 void ConcreteFactory2::DisplayMenu()
 {
   std::cout << "ConcreteFactory2::DisplayMenu() called." << std::endl;
-  // Implementation of DisplayMenu for ConcreteFactory2
+  DisplayMenu2 DisplayMenu2;
 }
 
 void ConcreteFactory2::RejectMsg()
 {
   std::cout << "ConcreteFactory2::RejectMsg() called." << std::endl;
-  // Implementation of RejectMsg for ConcreteFactory2
+  RejectMsg2 RejectMsg2;
 }
 
 void ConcreteFactory2::SetPrice(int g)
 {
   std::cout << "ConcreteFactory2::SetPrice() called with gas type: " << g << std::endl;
-  // Implementation of SetPrice for ConcreteFactory2
+  SetPrice2 SetPrice2;
 }
 
 void ConcreteFactory2::SetInitValues()
 {
   std::cout << "ConcreteFactory2::SetInitValues() called." << std::endl;
-  // Implementation of SetInitValues for ConcreteFactory2
+  SetInitValues2 SetInitValues2;
 }
 
 void ConcreteFactory2::PumpGasUnit()
 {
   std::cout << "ConcreteFactory2::PumpGasUnit() called." << std::endl;
-  // Implementation of PumpGasUnit for ConcreteFactory2
+  PumpGasUnit2 PumpGasUnit2;
 }
 
 void ConcreteFactory2::GasPumpedMsg()
 {
   std::cout << "ConcreteFactory2::GasPumpedMsg() called." << std::endl;
-  // Implementation of GasPumpedMsg for ConcreteFactory2
+  GasPumpedMsg2 GasPumpedMsg2;
 }
 
 void ConcreteFactory2::PrintReceipt()
 {
   std::cout << "ConcreteFactory2::PrintReceipt() called." << std::endl;
-  // Implementation of PrintReceipt for ConcreteFactory2
+  PrintReceipt2 PrintReceipt2;
 }
 
 void ConcreteFactory2::CancelMsg()
 {
   std::cout << "ConcreteFactory2::CancelMsg() called." << std::endl;
-  // Implementation of CancelMsg for ConcreteFactory2
+  CancelMsg2 CancelMsg2;
 }
 
 void ConcreteFactory2::ReturnCash()
 {
   std::cout << "ConcreteFactory2::ReturnCash() called." << std::endl;
-  // Implementation of ReturnCash for ConcreteFactory2
+  ReturnCash2 ReturnCash2;
 }
 
 void ConcreteFactory2::SetPayType(int t)
 {
   std::cout << "ConcreteFactory2::SetPayType() called with payment type: " << t << std::endl;
-  // Implementation of SetPayType for ConcreteFactory2
+  SetPayType2 SetPayType2;
 }
 
 void ConcreteFactory2::EjectCard()
 {
   std::cout << "ConcreteFactory2::EjectCard() called." << std::endl;
-  // Implementation of EjectCard for ConcreteFactory2
+  EjectCard2 EjectCard2;
 }
 
 int main()
 {
   DataStore1 ds1;
   DataStore2 ds2;
-  OP op;
-  MDAEFSM mda(&op);
-  AbstractFactory af;
-  // ConcreteFactory1 cf1;
-  // ConcreteFactory2 cf2;
+  ConcreteFactory1 cf1(&ds1);
+  ConcreteFactory2 cf2(&ds2);
   std::string choice;
   int a, b, c;
 
@@ -806,7 +1036,9 @@ int main()
 
   if (choice == "1")
   {
-    GP1 gp1(&ds1, &mda, &af);
+    OP op(&cf1);
+    MDAEFSM mda(&op);
+    GP1 gp1(&ds1, &mda, &cf1);
     while (choice != "q")
     {
       std::cout << " ----- GasPump-1 MENU of Operations ----- " << std::endl;
@@ -887,7 +1119,9 @@ int main()
   }
   else if (choice == "2")
   {
-    GP2 gp2(&ds2);
+    OP op(&cf2);
+    MDAEFSM mda(&op);
+    GP2 gp2(&ds2, &mda, &cf2);
     while (choice != "q")
     {
       std::cout << "----- GasPump-2 MENU of Operations -----" << std::endl;

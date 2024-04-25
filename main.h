@@ -5,7 +5,43 @@
 
 class MDAEFSM;
 class OP;
+class ConcreteFactory1;
+class ConcreteFactory2;
 
+class DataStore
+{
+public:
+};
+
+class DataStore1 : public DataStore
+{
+public:
+  int temp_a = 0;
+  int price = 0;
+  int L = 0;
+  int total = 0;
+  int temp_cash = 0;
+  int w = 0;
+  int cash = 0;
+};
+
+class DataStore2 : public DataStore
+{
+public:
+  float temp_a;
+  float temp_b;
+  float temp_c;
+  int temp_cash;
+  float Dprice;
+  float Rprice;
+  float Pprice;
+  int cash;
+  int total;
+  int G;
+  float price;
+};
+
+//----------class about state pattern----------
 class State
 {
 public:
@@ -89,6 +125,321 @@ public:
   void Receipt() override;
 };
 
+//-------------end-------------
+
+//----------class about stratgy pattern----------
+class StorePrices
+{
+public:
+  virtual void storePrices();
+};
+
+class StorePrices1 : public StorePrices
+{
+public:
+  ConcreteFactory1 *cf1;
+  StorePrices1(ConcreteFactory1 *cf1);
+  void storePrices();
+};
+
+class StorePrices2 : public StorePrices
+{
+public:
+  ConcreteFactory2 *cf2;
+  StorePrices2(ConcreteFactory2 *cf2);
+  void storePrices();
+};
+
+class PayMsg
+{
+public:
+};
+
+class PayMsg1 : public PayMsg
+{
+public:
+  void PayMsg();
+};
+
+class PayMsg2 : public PayMsg
+{
+public:
+  void PayMsg();
+};
+
+class StoreCash
+{
+public:
+};
+
+class StoreCash1 : public StoreCash
+{
+public:
+  void StoreCash();
+};
+
+class StoreCash2 : public StoreCash
+{
+public:
+  void StoreCash();
+};
+
+class DisplayMenu
+{
+public:
+};
+
+class DisplayMenu1 : public DisplayMenu
+{
+public:
+  void DisplayMenu();
+};
+
+class DisplayMenu2 : public DisplayMenu
+{
+public:
+  void DisplayMenu();
+};
+
+class RejectMsg
+{
+public:
+};
+
+class RejectMsg1 : public RejectMsg
+{
+public:
+  void RejectMsg();
+};
+
+class RejectMsg2 : public RejectMsg
+{
+public:
+  void RejectMsg();
+};
+
+class SetPrice
+{
+public:
+};
+
+class SetPrice1 : public SetPrice
+{
+public:
+  void SetPrice();
+};
+
+class SetPrice2 : public SetPrice
+{
+public:
+  void SetPrice();
+};
+
+class SetInitValues
+{
+public:
+};
+
+class SetInitValues1 : public SetInitValues
+{
+public:
+  void SetInitValues();
+};
+
+class SetInitValues2 : public SetInitValues
+{
+public:
+  void SetInitValues();
+};
+
+class PumpGasUnit
+{
+public:
+};
+
+class PumpGasUnit1 : public PumpGasUnit
+{
+public:
+  void PumpGasUnit();
+};
+
+class PumpGasUnit2 : public PumpGasUnit
+{
+public:
+  void PumpGasUnit();
+};
+
+class GasPumpedMsg
+{
+public:
+};
+
+class GasPumpedMsg1 : public GasPumpedMsg
+{
+public:
+  void GasPumpedMsg();
+};
+
+class GasPumpedMsg2 : public GasPumpedMsg
+{
+public:
+  void GasPumpedMsg();
+};
+
+class PrintReceipt
+{
+public:
+};
+
+class PrintReceipt1 : public PrintReceipt
+{
+public:
+  void PrintReceipt();
+};
+
+class PrintReceipt2 : public PrintReceipt
+{
+public:
+  void PrintReceipt();
+};
+
+class CancelMsg
+{
+public:
+};
+
+class CancelMsg1 : public CancelMsg
+{
+public:
+  void CancelMsg();
+};
+
+class CancelMsg2 : public CancelMsg
+{
+public:
+  void CancelMsg();
+};
+
+class ReturnCash
+{
+public:
+};
+
+class ReturnCash1 : public ReturnCash
+{
+public:
+  void ReturnCash();
+};
+
+class ReturnCash2 : public ReturnCash
+{
+public:
+  void ReturnCash();
+};
+
+class SetPayType
+{
+public:
+};
+
+class SetPayType1 : public SetPayType
+{
+public:
+  void SetPayType();
+};
+
+class SetPayType2 : public SetPayType
+{
+public:
+  void SetPayType();
+};
+
+class EjectCard
+{
+public:
+};
+
+class EjectCard1 : public EjectCard
+{
+public:
+  void EjectCard();
+};
+
+class EjectCard2 : public EjectCard
+{
+public:
+  void EjectCard();
+};
+
+//-------------end-------------
+
+//------class about Abstract Factory pattern------
+class AbstractFactory
+{
+public:
+  AbstractFactory();
+  virtual StorePrices *StorePrices();
+  virtual void PayMsg();
+  virtual void StoreCash();
+  virtual void DisplayMenu();
+  virtual void RejectMsg();
+  virtual void SetPrice(int g);
+  virtual void SetInitValues();
+  virtual void PumpGasUnit();
+  virtual void GasPumpedMsg();
+  virtual void PrintReceipt();
+  virtual void CancelMsg();
+  virtual void ReturnCash();
+  virtual void SetPayType(int t);
+  virtual void EjectCard();
+};
+
+class ConcreteFactory1 : public AbstractFactory
+{
+public:
+  DataStore1 *d;
+  ConcreteFactory1(DataStore1 *d);
+  int getIntData(std::string s);
+  void setIntData(std::string s, int n);
+  StorePrices1 *StorePrices() override;
+  void PayMsg() override;
+  void StoreCash() override;
+  void DisplayMenu() override;
+  void RejectMsg() override;
+  void SetPrice(int g) override;
+  void SetInitValues() override;
+  void PumpGasUnit() override;
+  void GasPumpedMsg() override;
+  void PrintReceipt() override;
+  void CancelMsg() override;
+  void ReturnCash() override;
+  void SetPayType(int t) override;
+  void EjectCard() override;
+};
+
+class ConcreteFactory2 : public AbstractFactory
+{
+public:
+  DataStore2 *d;
+  ConcreteFactory2(DataStore2 *d);
+  StorePrices2 *StorePrices() override;
+  void PayMsg() override;
+  void StoreCash() override;
+  void DisplayMenu() override;
+  void RejectMsg() override;
+  void SetPrice(int g) override;
+  void SetInitValues() override;
+  void PumpGasUnit() override;
+  void GasPumpedMsg() override;
+  void PrintReceipt() override;
+  void CancelMsg() override;
+  void ReturnCash() override;
+  void SetPayType(int t) override;
+  void EjectCard() override;
+};
+
+//-------------end-------------
+
 class MDAEFSM
 {
 public:
@@ -119,89 +470,25 @@ public:
   void ChangeState(int x);
 };
 
-class AbstractFactory
-{
-public:
-  AbstractFactory();
-  virtual void StorePrices();
-  virtual void PayMsg();
-  virtual void StoreCash();
-  virtual void DisplayMenu();
-  virtual void RejectMsg();
-  virtual void SetPrice(int g);
-  virtual void SetInitValues();
-  virtual void PumpGasUnit();
-  virtual void GasPumpedMsg();
-  virtual void PrintReceipt();
-  virtual void CancelMsg();
-  virtual void ReturnCash();
-  virtual void SetPayType(int t);
-  virtual void EjectCard();
-};
-
-class StorePrices
-{
-public:
-};
-
-class StorePrices1
-{
-public:
-  void StorePrices();
-};
-
-class StorePrices2
-{
-public:
-  void StorePrices();
-};
-
-class ConcreteFactory1 : public AbstractFactory
-{
-public:
-  // DataStore1 *d;
-  ConcreteFactory1();
-  void StorePrices() override;
-  void PayMsg() override;
-  void StoreCash() override;
-  void DisplayMenu() override;
-  void RejectMsg() override;
-  void SetPrice(int g) override;
-  void SetInitValues() override;
-  void PumpGasUnit() override;
-  void GasPumpedMsg() override;
-  void PrintReceipt() override;
-  void CancelMsg() override;
-  void ReturnCash() override;
-  void SetPayType(int t) override;
-  void EjectCard() override;
-};
-
-class ConcreteFactory2 : public AbstractFactory
-{
-public:
-  // DataStore2 *d;
-  ConcreteFactory2();
-  void StorePrices() override;
-  void PayMsg() override;
-  void StoreCash() override;
-  void DisplayMenu() override;
-  void RejectMsg() override;
-  void SetPrice(int g) override;
-  void SetInitValues() override;
-  void PumpGasUnit() override;
-  void GasPumpedMsg() override;
-  void PrintReceipt() override;
-  void CancelMsg() override;
-  void ReturnCash() override;
-  void SetPayType(int t) override;
-  void EjectCard() override;
-};
-
 class OP
 {
 public:
-  OP();
+  StorePrices *storep;
+  PayMsg *pm;
+  StoreCash *sc;
+  DisplayMenu *dm;
+  RejectMsg *rm;
+  SetPrice *setp;
+  SetInitValues *sv;
+  PumpGasUnit *psu;
+  GasPumpedMsg *gpu;
+  PrintReceipt *pr;
+  CancelMsg *cm;
+  ReturnCash *rc;
+  SetPayType *spt;
+  EjectCard *ec;
+  AbstractFactory *af;
+  OP(AbstractFactory *af);
   void StorePrices();
   void PayMsg();
   void StoreCash();
@@ -218,47 +505,14 @@ public:
   void EjectCard();
 };
 
-class DataStore
-{
-public:
-};
-
-class DataStore1 : public DataStore
-{
-public:
-  int temp_a;
-  int price;
-  int L;
-  int total;
-  int temp_cash;
-  int w;
-  int cash;
-};
-
-class DataStore2 : public DataStore
-{
-public:
-  float temp_a;
-  float temp_b;
-  float temp_c;
-  int temp_cash;
-  float Dprice;
-  float Rprice;
-  float Pprice;
-  int cash;
-  int total;
-  int G;
-  float price;
-};
-
 class GP1
 {
   MDAEFSM *m;
   DataStore *d;
-  AbstractFactory *af;
+  ConcreteFactory1 *cf1;
 
 public:
-  GP1(DataStore1 *ds, MDAEFSM *mda, AbstractFactory *af);
+  GP1(DataStore1 *ds, MDAEFSM *mda, ConcreteFactory1 *cf1);
   void Activate(int a);
   void Start();
   void PayCredit();
@@ -275,9 +529,10 @@ class GP2
 {
   MDAEFSM *m;
   DataStore *d;
+  ConcreteFactory2 *cf2;
 
 public:
-  GP2(DataStore2 *ds);
+  GP2(DataStore2 *ds, MDAEFSM *mda, ConcreteFactory2 *cf2);
   void Activate(float a, float b, float c);
   void Start();
   void PayCash(int c);

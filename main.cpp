@@ -1143,7 +1143,7 @@ void GP1::Activate(int a)
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1156,7 +1156,7 @@ void GP1::Start()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1170,7 +1170,7 @@ void GP1::PayCredit()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1183,7 +1183,7 @@ void GP1::Reject()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1196,7 +1196,7 @@ void GP1::Cancel()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1210,7 +1210,7 @@ void GP1::Approved()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1228,7 +1228,7 @@ void GP1::PayCash(int c)
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1243,7 +1243,7 @@ void GP1::StartPump()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1269,7 +1269,7 @@ void GP1::Pump()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1284,7 +1284,7 @@ void GP1::StopPump()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1314,7 +1314,7 @@ void GP2::Activate(float a, float b, float c)
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1327,7 +1327,7 @@ void GP2::Start()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1345,7 +1345,7 @@ void GP2::PayCash(int c)
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1358,7 +1358,7 @@ void GP2::Cancel()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1373,7 +1373,7 @@ void GP2::Premium()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1388,7 +1388,7 @@ void GP2::Regular()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1403,7 +1403,7 @@ void GP2::Diesel()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1417,7 +1417,7 @@ void GP2::StartPump()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1438,7 +1438,7 @@ void GP2::PumpGallon()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1452,7 +1452,7 @@ void GP2::Stop()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1465,7 +1465,7 @@ void GP2::Receipt()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 
@@ -1479,7 +1479,7 @@ void GP2::NoReceipt()
   }
   else
   {
-    std::cout << "   Error: wrong state" << std::endl;
+    std::cout << "   Try again" << std::endl;
   }
 }
 

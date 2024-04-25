@@ -158,7 +158,7 @@ public:
 
 //-------------end-------------
 
-//----------class about stratgy pattern----------
+//----------class about strategy pattern----------
 class StorePrices
 {
 public:

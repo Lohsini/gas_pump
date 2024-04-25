@@ -269,7 +269,7 @@ void S6::Receipt()
 
 //-------------end-------------
 
-//----------functions about stratgy pattern----------
+//----------functions about strategy pattern----------
 void StorePrices::storePrices() {}
 
 StorePrices1::StorePrices1(ConcreteFactory1 *cf1)

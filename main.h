@@ -125,6 +125,36 @@ public:
   void Receipt() override;
 };
 
+class MDAEFSM
+{
+public:
+  State *s;
+  State *LS[8];
+  Start start;
+  S0 s0;
+  S1 s1;
+  S2 s2;
+  S3 s3;
+  S4 s4;
+  S5 s5;
+  S6 s6;
+  MDAEFSM(OP *op);
+  void Activate();
+  void Start();
+  void PayType(int t);
+  void Reject();
+  void Cancel();
+  void Approved();
+  void StartPump();
+  void Pump();
+  void StopPump();
+  void SelectGas(int g);
+  void Receipt();
+  void NoReceipt();
+  void Continue();
+  void ChangeState(int x);
+};
+
 //-------------end-------------
 
 //----------class about stratgy pattern----------
@@ -439,36 +469,6 @@ public:
 };
 
 //-------------end-------------
-
-class MDAEFSM
-{
-public:
-  State *s;
-  State *LS[8];
-  Start start;
-  S0 s0;
-  S1 s1;
-  S2 s2;
-  S3 s3;
-  S4 s4;
-  S5 s5;
-  S6 s6;
-  MDAEFSM(OP *op);
-  void Activate();
-  void Start();
-  void PayType(int t);
-  void Reject();
-  void Cancel();
-  void Approved();
-  void StartPump();
-  void Pump();
-  void StopPump();
-  void SelectGas(int g);
-  void Receipt();
-  void NoReceipt();
-  void Continue();
-  void ChangeState(int x);
-};
 
 class OP
 {

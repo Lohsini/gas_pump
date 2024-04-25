@@ -139,6 +139,7 @@ public:
   S5 s5;
   S6 s6;
   MDAEFSM(OP *op);
+  int GetCurrentStateIndex();
   void Activate();
   void Start();
   void PayType(int t);
@@ -207,6 +208,8 @@ public:
 class StoreCash1 : public StoreCash
 {
 public:
+  ConcreteFactory1 *cf1;
+  StoreCash1(ConcreteFactory1 *cf1);
   void storeCash();
 };
 
@@ -279,6 +282,8 @@ public:
 class SetInitValues1 : public SetInitValues
 {
 public:
+  ConcreteFactory1 *cf1;
+  SetInitValues1(ConcreteFactory1 *cf1);
   void setInitValues();
 };
 
@@ -297,6 +302,8 @@ public:
 class PumpGasUnit1 : public PumpGasUnit
 {
 public:
+  ConcreteFactory1 *cf1;
+  PumpGasUnit1(ConcreteFactory1 *cf1);
   void pumpGasUnit();
 };
 
@@ -315,6 +322,8 @@ public:
 class GasPumpedMsg1 : public GasPumpedMsg
 {
 public:
+  ConcreteFactory1 *cf1;
+  GasPumpedMsg1(ConcreteFactory1 *cf1);
   void gasPumpedMsg();
 };
 
@@ -333,6 +342,8 @@ public:
 class PrintReceipt1 : public PrintReceipt
 {
 public:
+  ConcreteFactory1 *cf1;
+  PrintReceipt1(ConcreteFactory1 *cf1);
   void printReceipt();
 };
 
@@ -369,6 +380,8 @@ public:
 class ReturnCash1 : public ReturnCash
 {
 public:
+  ConcreteFactory1 *cf1;
+  ReturnCash1(ConcreteFactory1 *cf1);
   void returnCash();
 };
 
@@ -381,19 +394,23 @@ public:
 class SetPayType
 {
 public:
-  virtual void setPayType();
+  virtual void setPayType(int t);
 };
 
 class SetPayType1 : public SetPayType
 {
 public:
-  void setPayType();
+  ConcreteFactory1 *cf1;
+  SetPayType1(ConcreteFactory1 *cf1);
+  void setPayType(int t);
 };
 
 class SetPayType2 : public SetPayType
 {
 public:
-  void setPayType();
+  // ConcreteFactory2 *cf2;
+  // SetPayType2(ConcreteFactory2 *cf2);
+  void setPayType(int t);
 };
 
 class EjectCard
